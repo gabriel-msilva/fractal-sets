@@ -38,6 +38,7 @@ file_path = images_dir.joinpath('mandelbrot_bw.png')
 plt.savefig(file_path, dpi=200, bbox_inches='tight')
 
 
+# Colored Mandelbrot set ------------------------------------------------------
 mandelbrot_args = {
     'max_iter': 100, 
     'number_points': 600,

@@ -79,7 +79,7 @@ def plot_mandelbrot(
     number_points : int, default 300
         Number of `c` points between the axis limits.
     ax : matplotlib.axes._axes.Axes, optional
-        If not None, draw plot to `ax`.
+        If not None, draw plot to `ax`. Otherwise, return a new figure.
     axis_labels : bool, default False
         If True, display axis lines and labels.
     smoothing : bool, default False
@@ -125,13 +125,17 @@ def plot_julia(
     Parameters
     ----------
     c : complex
-        DESCRIPTION.
+        Constant complex number of the logistic map, :math:`z_{n+1} = z_n^2 + c`.
+    center : complex, default -0.5
+        Center point of the plot.
+    zoom : int, default 1
+        Zoom ratio.
     max_iter : int, default 200
         Maximum number of iterations.
     number_points : int, default 300
         Number of `c` points between the axis limits.
     ax : matplotlib.axes._axes.Axes, optional
-        If not None, draw plot to `ax`.
+        If not None, draw plot to `ax`. Otherwise, return a new figure.
     axis_labels : bool, default False
         If True, display axis lines and labels.
     smoothing : bool, default False
