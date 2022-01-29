@@ -1,0 +1,8 @@
+name: fractal-sets
+channels:
+  - conda-forge
+dependencies:
+  - pre-commit
+  - black
+  - flake8
+  - isort
