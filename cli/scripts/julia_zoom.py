@@ -4,11 +4,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from src.set_plotting import plot_julia
-from src.utils import PROJECT_DIR, linear_cmap, make_gif, set_plot_style
+from cli._utils import ANIMATED_IMG_DIR, ARGS
+from src import plot_julia
+from src.utils import linear_cmap, make_gif, set_plot_style
 
-images_dir = PROJECT_DIR.joinpath("images")
-julia_cmap = linear_cmap("ultra", N=4096)
+CMAP = linear_cmap("ultra", N=4096)
 
 set_plot_style(font="Merriweather")
 
@@ -23,7 +23,7 @@ def save_plot(i: int, image_path: Path):
         "max_iter": 100,
         "number_points": 600,
         "smoothing": True,
-        "cmap": julia_cmap,
+        "cmap": CMAP,
         "axis_labels": True,
     }
 
@@ -31,13 +31,14 @@ def save_plot(i: int, image_path: Path):
 
     # DPI ratio for `number of pixels = number_points`
     dpi = julia_args["number_points"] / 3.625
-    fig.savefig(image_path, dpi=dpi, pad_inches=0)
+    fig.savefig(image_path, dpi=dpi, pad_inches=0, transparent=True)
 
     plt.close(fig)
 
 
-def main(multiprocess: bool = False):
-    png_dir = images_dir.joinpath("julia_zoom")
+def main(multiprocess: bool = ARGS["multiprocess"]):
+    name = "julia-zoom"
+    png_dir = ANIMATED_IMG_DIR.joinpath(name)
 
     if not png_dir.exists():
         png_dir.mkdir(parents=True)
@@ -55,10 +56,6 @@ def main(multiprocess: bool = False):
 
     make_gif(
         input_dir=png_dir,
-        output_file=images_dir.joinpath("julia_zoom.gif"),
+        output_file=ANIMATED_IMG_DIR.joinpath(name),
         pause=25,
     )
-
-
-if __name__ == "__main__":
-    main(multiprocess=True)

@@ -95,7 +95,7 @@ def make_gif(
     intput_dir : Path
         Directory path containing PNG images.
     output_file : Path
-        Output file path.
+        Gif output file path.
     fps : int, default 30
         Frames per second.
     pause : int, default 0
@@ -115,6 +115,9 @@ def make_gif(
     if not output_file.suffix:
         output_file = output_file.with_suffix(".gif")
 
+    if output_file.suffix != ".gif":
+        raise ValueError("`output_file` extension must be .gif")
+
     image_files = [file for file in sorted(input_dir.glob("*.png"))]
 
     if not image_files:
@@ -129,5 +132,4 @@ def make_gif(
         image_files = image_files + list(reversed(image_files[1:-1]))
 
     images = [imageio.imread(file_name) for file_name in image_files]
-
     imageio.mimwrite(output_file, images, fps=fps)
