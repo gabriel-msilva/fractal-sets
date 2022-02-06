@@ -6,9 +6,6 @@ from matplotlib import font_manager
 from matplotlib.colors import LinearSegmentedColormap
 from pygifsicle import optimize
 
-PROJECT_DIR = Path(__file__).resolve().parents[1]
-IMAGES_DIR = PROJECT_DIR.joinpath("images")
-
 CMAPS = {
     "uwob": ["#265FD9", "white", "#D9A026", "black"],
     "ultra": [

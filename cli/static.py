@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import typer
 from matplotlib.patches import Rectangle
 
+from cli._utils import STATIC_IMG_DIR
 from src.plotting import plot_julia, plot_mandelbrot
-from src.utils import STATIC_IMG_DIR, linear_cmap, set_plot_style
+from src.utils import linear_cmap, set_plot_style
 
 if not STATIC_IMG_DIR.exists():
     STATIC_IMG_DIR.mkdir()
@@ -36,7 +37,6 @@ def _save_fig(file_name: str, dpi: float, **kwargs):
         STATIC_IMG_DIR.joinpath(file_name),
         dpi=dpi,
         bbox_inches="tight",
-        transparent=True,
     )
 
 
@@ -107,14 +107,19 @@ def mandelbrot_zoom():
         center=-0.16 + 1.035j, zoom=100, ax=ax[2], **MANDELBROT_ARGS
     )
 
+    ax[0].set_title("(a)")
     ax[0].axis("off")
+
+    ax[1].set_title("(b)")
     ax[1].axis("off")
+
+    ax[2].set_title("(c)")
     ax[2].axis("off")
 
     _draw_box(ax[0], center=-0.12 + 0.85j, zoom=6, color="#C12D1A")
     _draw_box(ax[1], center=-0.16 + 1.035j, zoom=100, color="#C12D1A")
 
-    _save_fig("mandelbrot-zoom.png", dpi=439, pad_inches=0)
+    _save_fig("mandelbrot-zoom.png", dpi=439, pad_inches=0, transparent=True)
 
 
 @mandelbrot_app.command("smoothing")
