@@ -6,7 +6,7 @@ import numpy as np
 
 from cli._utils import ANIMATED_IMG_DIR, ARGS
 from src import plot_julia
-from src.utils import linear_cmap, make_gif, set_plot_style
+from src.utils import animate, linear_cmap, set_plot_style
 
 CMAP = linear_cmap("ultra", N=4096)
 
@@ -21,7 +21,7 @@ def save_plot(i: int, image_path: Path):
         "center": 1.61803398874989,
         "zoom": zooming_rate**i,
         "max_iter": 100,
-        "number_points": 600,
+        "number_points": 400,
         "smoothing": True,
         "cmap": CMAP,
         "axis_labels": True,
@@ -31,7 +31,7 @@ def save_plot(i: int, image_path: Path):
 
     # DPI ratio for `number of pixels = number_points`
     dpi = julia_args["number_points"] / 3.625
-    fig.savefig(image_path, dpi=dpi, pad_inches=0, transparent=True)
+    fig.savefig(image_path, dpi=dpi, pad_inches=0)
 
     plt.close(fig)
 
@@ -54,8 +54,11 @@ def main(multiprocess: bool = ARGS["multiprocess"]):
         for i, png_path in zip(n, png_paths):
             save_plot(i, png_path)
 
-    make_gif(
+    output_file = png_dir.with_suffix(".gif")
+
+    animate(
         input_dir=png_dir,
-        output_file=ANIMATED_IMG_DIR.joinpath(name),
+        output_file=output_file,
         pause=25,
+        subrectangles=True,
     )

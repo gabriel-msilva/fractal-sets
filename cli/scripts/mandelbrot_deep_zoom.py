@@ -6,7 +6,7 @@ import numpy as np
 
 from cli._utils import ANIMATED_IMG_DIR, ARGS
 from src import plot_mandelbrot
-from src.utils import linear_cmap, make_gif
+from src.utils import animate, linear_cmap
 
 mandelbrot_cmap = linear_cmap("ultra", N=4096)
 
@@ -21,7 +21,7 @@ def save_plot(i: int, image_path: Path):
         ),
         "zoom": zooming_rate**i,
         "max_iter": np.sqrt(zooming_rate**i) + 200,
-        "number_points": 600,
+        "number_points": 1200,
         "smoothing": True,
         "cmap": mandelbrot_cmap,
         "interpolation": "antialiased",
@@ -43,13 +43,13 @@ def save_plot(i: int, image_path: Path):
 
 
 def main(multiprocess: bool = ARGS["multiprocess"]):
-    name = "mandelbrot_zoom2"
+    name = "mandelbrot-deep-zoom"
     png_dir = ANIMATED_IMG_DIR.joinpath(name)
 
     if not png_dir.exists():
         png_dir.mkdir(parents=True)
 
-    n = np.arange(735)
+    n = np.arange(718)
     png_paths = [png_dir.joinpath(f"{i:03}.png") for i in n]
 
     if multiprocess:
@@ -59,8 +59,6 @@ def main(multiprocess: bool = ARGS["multiprocess"]):
         for i, png_path in zip(n, png_paths):
             save_plot(i, png_path)
 
-    make_gif(
-        input_dir=png_dir,
-        output_file=ANIMATED_IMG_DIR.joinpath(name),
-        pause=20,
-    )
+    output_file = png_dir.with_suffix(".mp4")
+
+    animate(input_dir=png_dir, output_file=output_file, pause=20, quality=10)

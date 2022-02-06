@@ -80,22 +80,25 @@ def set_plot_style(axis_lines: bool = False, font: str = None):
         plt.rcParams["font.family"] = font
 
 
-def make_gif(
+def animate(
     input_dir: Path,
     output_file: Path,
     fps: int = 30,
     pause: int = 0,
     back_loop: bool = False,
+    **kwargs,
 ) -> None:
     """
-    Make an animated GIF from PNG images in a directory.
+    Make an animated image or video from PNG images in a directory.
+
+    `imageio.help()` to see available formats.
 
     Parameters
     ----------
     intput_dir : Path
         Directory path containing PNG images.
     output_file : Path
-        Gif output file path.
+        Output file path. If no extension is given, default to `.mp4`.
     fps : int, default 30
         Frames per second.
     pause : int, default 0
@@ -113,10 +116,7 @@ def make_gif(
 
     """
     if not output_file.suffix:
-        output_file = output_file.with_suffix(".gif")
-
-    if output_file.suffix != ".gif":
-        raise ValueError("`output_file` extension must be .gif")
+        output_file = output_file.with_suffix(".mp4")
 
     image_files = [file for file in sorted(input_dir.glob("*.png"))]
 
@@ -132,4 +132,4 @@ def make_gif(
         image_files = image_files + list(reversed(image_files[1:-1]))
 
     images = [imageio.imread(file_name) for file_name in image_files]
-    imageio.mimwrite(output_file, images, fps=fps)
+    imageio.mimwrite(output_file, images, fps=fps, **kwargs)

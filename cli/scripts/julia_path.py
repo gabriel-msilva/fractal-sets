@@ -7,7 +7,7 @@ import typer
 
 from cli._utils import ANIMATED_IMG_DIR, ARGS
 from src import plot_julia, plot_mandelbrot
-from src.utils import linear_cmap, make_gif, set_plot_style
+from src.utils import animate, linear_cmap, set_plot_style
 
 BACK_LOOP = {"circumference": False, "segment": True}
 CMAP = linear_cmap("ultra", N=4096)
@@ -35,7 +35,7 @@ def save_plot(c, line_path, png_path):
     fig, ax = plt.subplots(1, 2)
 
     set_args = {
-        "number_points": 600,
+        "number_points": 400,
         "cmap": CMAP,
         "smoothing": True,
     }
@@ -53,7 +53,7 @@ def save_plot(c, line_path, png_path):
     fig.tight_layout()
 
     dpi = set_args["number_points"] / 3.625
-    fig.savefig(png_path, dpi=dpi, bbox_inches="tight", transparent=True)
+    fig.savefig(png_path, dpi=dpi, bbox_inches="tight")
 
     plt.close(fig)
 
@@ -77,8 +77,10 @@ def main(
     n_images = 600
     c_array = get_line_path(line_path, n_images)
 
-    d = int(np.log10(n_images)) + 1
-    png_paths = [png_dir.joinpath(f"{i:0{d}}.png") for i in range(n_images)]
+    digits = int(np.log10(n_images)) + 1
+    png_paths = [
+        png_dir.joinpath(f"{i:0{digits}}.png") for i in range(n_images)
+    ]
 
     if multiprocess:
         pool = Pool()
@@ -90,8 +92,10 @@ def main(
             save_plot(c, line_path, png_path)
 
     output_file = png_dir.with_suffix(".gif")
-    make_gif(
+
+    animate(
         input_dir=png_dir,
         output_file=output_file,
         back_loop=BACK_LOOP[line_path],
+        subrectangles=True,
     )

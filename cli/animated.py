@@ -4,8 +4,8 @@ from cli._utils import ANIMATED_IMG_DIR
 from cli.scripts import (
     julia_path,
     julia_zoom,
+    mandelbrot_deep_zoom,
     mandelbrot_zoom,
-    mandelbrot_zoom2,
 )
 
 if not ANIMATED_IMG_DIR.exists():
@@ -17,7 +17,7 @@ julia_app.command("zoom")(julia_zoom)
 
 mandelbrot_app = typer.Typer()
 mandelbrot_app.command("zoom")(mandelbrot_zoom)
-mandelbrot_app.command("zoom2")(mandelbrot_zoom2)
+mandelbrot_app.command("deep-zoom")(mandelbrot_deep_zoom)
 
 app = typer.Typer()
 app.add_typer(julia_app, name="julia")
