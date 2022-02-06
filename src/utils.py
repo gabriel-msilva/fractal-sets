@@ -4,6 +4,7 @@ import imageio
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 from matplotlib.colors import LinearSegmentedColormap
+from pygifsicle import optimize
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 IMAGES_DIR = PROJECT_DIR.joinpath("images")
@@ -133,3 +134,6 @@ def animate(
 
     images = [imageio.imread(file_name) for file_name in image_files]
     imageio.mimwrite(output_file, images, fps=fps, **kwargs)
+
+    if output_file.suffix == ".gif":
+        optimize(output_file)
