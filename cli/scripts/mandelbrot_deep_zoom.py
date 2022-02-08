@@ -59,6 +59,6 @@ def main(multiprocess: bool = ARGS["multiprocess"]):
         for i, png_path in zip(n, png_paths):
             save_plot(i, png_path)
 
-    output_file = png_dir.with_suffix(".mp4")
+    output_file = png_dir.with_suffix(".mkv")
 
     animate(input_dir=png_dir, output_file=output_file, pause=20, quality=10)
