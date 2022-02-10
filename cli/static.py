@@ -119,7 +119,7 @@ def mandelbrot_zoom():
     _draw_box(ax[0], center=-0.12 + 0.85j, zoom=6, color="#C12D1A")
     _draw_box(ax[1], center=-0.16 + 1.035j, zoom=100, color="#C12D1A")
 
-    _save_fig("mandelbrot-zoom.png", dpi=439, pad_inches=0, transparent=True)
+    _save_fig("mandelbrot-zoom.png", dpi=300, pad_inches=0, transparent=True)
 
 
 @mandelbrot_app.command("smoothing")
