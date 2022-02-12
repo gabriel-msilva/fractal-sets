@@ -8,7 +8,6 @@ CONDA_ACTIVATE := source $$(conda info --base)/etc/profile.d/conda.sh; conda act
 .PHONY: help
 help:
 	@echo "Commands:"
-	@echo "tagifai      list of main operations."
 	@echo "conda-env    create development environment."
 	@echo "pre-commit   install pre-commit hooks"
 	@echo "style        run code style formatting."
