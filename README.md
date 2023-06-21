@@ -1,9 +1,9 @@
 fractal-sets
 ============
 
-<img src="https://www.dropbox.com/s/x02dxx4pa1bj8r6/mandelbrot-colored.png?raw=1" alt="Mandelbrot set" width="50%" />
+<img src="https://github.com/gabriel-msilva/melloc/blob/b58df38fd4ec1c4c6c2f51b160ea1cc6a500f1af/content/post/2022-02-08-mandelbrot-and-julia-sets/figures/static/mandelbrot-colored.png" alt="Mandelbrot set" width="50%" />
 
-Plot [Mandelbrot](https://en.wikipedia.org/wiki/Mandelbrot_set) and quadratic [Julia](https://en.wikipedia.org/wiki/Julia_set) sets. This code was used for my [blog post](https://gabriel-msilva.github.io/post/2022-02-08-mandelbrot-and-julia-sets/).
+Plot [Mandelbrot](https://en.wikipedia.org/wiki/Mandelbrot_set) and quadratic [Julia](https://en.wikipedia.org/wiki/Julia_set) sets. This code was used for my [blog post](https://gabriel-msilva.github.io/melloc/post/2022-02-08-mandelbrot-and-julia-sets/).
 
 Performance optimized with [numba](https://numba.pydata.org/) and parallelized with [multiprocessing](https://docs.python.org/3/library/multiprocessing.html).
 
@@ -18,7 +18,7 @@ Performance optimized with [numba](https://numba.pydata.org/) and parallelized w
 Running environment:
 
 ```
-conda create
+conda env create
 conda activate
 ```
 
